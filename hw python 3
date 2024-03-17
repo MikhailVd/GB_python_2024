@@ -1,0 +1,101 @@
+# Дан список повторяющихся элементов. Вернуть список с дублирующимися элементами. В результирующем списке не должно быть дубликатов.
+
+def find_duplicates(lst): 
+    # Создание словаря для подсчета количества элементов
+    count = {}
+    for item in lst:
+        count[item] = count.get(item, 0) + 1
+    
+    # Создание списка с дублирующимися элементами
+    duplicates = []
+    for key, value in count.items():
+        if value > 1:
+            duplicates.append(key)
+    
+    print("Исходный список:", my_list)
+    print("Список с дублирующимися элементами:", list(set(duplicates)))
+    return 
+
+my_list = [1, 2, 3, 4, 2, 5, 6, 7, 1, 8, 9, 3, 2, 4]
+find_duplicates(my_list)
+
+  
+  
+#В большой текстовой строке подсчитать количество встречаемых слов и вернуть 10 самых частых. 
+#Не учитывать знаки препинания и регистр символов. 
+#За основу возьмите любую статью из википедии или из документации к языку.
+
+import re
+
+def top_frequent_words(text, n=10):
+    text = re.sub(r'[^\w\s]', '', text).lower()
+    words = text.split()
+
+    word_counts = {}
+    for word in words:
+        word_counts[word] = word_counts.get(word, 0) + 1
+    
+    sorted_counts = sorted(word_counts.items(), key=lambda x: x[1], reverse=True)
+    
+    top_words = [word for word, count in sorted_counts[:n]]
+    print("10 самых часто встречающихся слов:")
+    print(top_words)
+    return
+# Пример использования
+text = """
+Tekken 4 (яп. 鉄拳4 Тэккэ́н Фо:, «Железный кулак 4») — компьютерная игра в жанре файтинг, разработанная японской компанией Namco и выпущенная ей же для аркадных автоматов в июле 2001 года, после чего 28 марта 2002 года она была портирована на PlayStation 2; это четвёртая часть игровой серии Tekken и пятая игра в целом после выхода спин-оффа Tekken Tag Tournament (1999). После успеха предыдущей основной игры франшизы Tekken 3 (1997) разработчики захотели поэкспериментировать с новыми игровыми механиками и интерактивным окружением, чтобы дать серии новое дыхание. Tekken 4 стала первой игрой для PS2, которая поддерживала режим прогрессивной развёртки. 
+"""
+top_frequent_words(text)
+
+
+
+#Создайте словарь со списком вещей для похода в качестве ключа и их массой в качестве значения. 
+#Определите какие вещи влезут в рюкзак передав его максимальную грузоподъёмность. 
+#Достаточно вернуть один допустимый вариант.*Верните все возможные варианты комплектации рюкзака.
+
+
+def pack_backpack(items_dict, max_weight):
+    solutions = []
+
+    # Функция для перебора комбинаций
+    def backtrack(start_index, current_weight, current_items):
+        if current_weight == max_weight:
+            solutions.append(current_items[:])
+            return
+        
+        # Перебираем все вещи
+        for i in range(start_index, len(items_dict)):
+            item, weight = list(items_dict.items())[i]
+            if current_weight + weight <= max_weight:
+                current_items.append(item)
+                backtrack(i + 1, current_weight + weight, current_items)
+                current_items.pop()
+                
+    backtrack(0, 0, [])
+    
+    print(f"Количество комбинаций вещей, максимально загружающих рюкзак грузоподъемностью {max_weight} кг: {len(max_packs)}")
+    print("Максимально загруженные комбинации вещей:")
+    for pack in solutions:
+        print(pack)
+    return
+
+items = {
+    "солнцезащитные очки": 0.2,
+    "бутылка воды": 1.5,
+    "фонарик": 0.8,
+    "карта": 0.1,
+    "дождевик": 1.2,
+    "спальник": 2.5,
+    "палатка": 3.0,
+    "кастрюля": 1.0,
+    "тарелка": 0.5,
+    "ложка": 0.1,
+    "вилка": 0.1,
+    "нож": 0.2,
+    "книга": 0.7,
+    "зарядное устройство": 0.3,
+    "повербанк": 0.4
+}
+max_weight = 1.0
+pack_backpack(items, max_weight)
+  
