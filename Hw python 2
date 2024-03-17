@@ -1,3 +1,6 @@
+#Напишите программу, которая получает целое число и возвращает его шестнадцатеричное строковое представление. 
+#Функцию hex используйте для проверки своего результата.
+
 def decimal_to_hex(decimal_num):
     """
     Функция для преобразования целого числа в шестнадцатеричную строку
@@ -22,3 +25,44 @@ decimal_number = int(input("Введите целое число: "))
 hex_string = decimal_to_hex(decimal_number)
 print(f"Шестнадцатеричное представление числа {decimal_number}: {hex_string}")
 print(f"Проверка с использованием hex(): {hex(decimal_number)}")
+
+
+
+#Напишите программу, которая принимает две строки вида “a/b” - дробь с числителем и знаменателем. 
+#Программа должна возвращать сумму и произведение* дробей. 
+#Для проверки своего кода используйте модуль fractions
+
+from fractions import Fraction
+
+def gcd(a, b): #Функция для нахождения наибольшего общего делителя двух чисел
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+def fraction_operations(): #Функция, которая принимает две дроби в виде строк и возвращает их сумму и произведение.
+    frac1_str = input("Введите первую дробь (формат: a/b): ")
+    frac2_str = input("Введите вторую дробь (формат: a/b): ")
+    num1, den1 = map(int, frac1_str.split('/'))
+    num2, den2 = map(int, frac2_str.split('/'))
+    lcd = den1 * den2 // gcd(den1, den2)
+    sum_num = num1 * (lcd // den1) + num2 * (lcd // den2)
+    sum_frac = f"{sum_num}/{lcd}"
+    product_num = num1 * num2
+    product_den = den1 * den2
+    gcd_value = gcd(product_num, product_den)
+    product_frac = f"{product_num // gcd_value}/{product_den // gcd_value}"
+    
+    print(f"Сумма дробей: {sum_frac}")
+    print(f"Произведение дробей: {product_frac}")
+    
+    # Проверка с использованием модуля fractions
+    frac1_obj = Fraction(frac1_str)
+    frac2_obj = Fraction(frac2_str)
+    sum_check = frac1_obj + frac2_obj
+    product_check = frac1_obj * frac2_obj
+    print(f"Проверка суммы с помощью fractions: {sum_check}")
+    print(f"Проверка произведения с помощью fractions: {product_check}")
+    
+    return
+
+fraction_operations()
