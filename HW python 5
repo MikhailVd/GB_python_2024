@@ -1,0 +1,45 @@
+# Напишите функцию для транспонирования матрицы
+
+def transpose_matrix(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0]) if rows > 0 else 0
+    
+    transposed = [[0 for j in range(rows)] for i in range(cols)]
+    
+    for i in range(rows):
+        for j in range(cols):
+            transposed[j][i] = matrix[i][j]
+            
+    print("Исходная матрица:")
+    for row in original_matrix:
+        print(row)
+        
+    print("\nТранспонированная матрица:")
+    for row in transposed_matrix:
+        print(row)
+        
+    return 
+
+# Пример использования
+original_matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+transpose_matrix(original_matrix)
+
+# Напишите функцию принимающую на вход только ключевые параметры и возвращающую словарь, где ключ — значение переданного аргумента, а значение — имя аргумента. 
+# Если ключ не хешируем, используйте его строковое представление.
+def create_dict_from_kwargs(**kwargs):
+    result = {}
+    for key, value in kwargs.items():
+        try:
+            result[value] = key
+        except TypeError:
+            result[str(value)] = key
+    print(result)        
+    return 
+
+create_dict_from_kwargs(name="Alice", age=25.0, hobbies=["reading", "painting"])
+
