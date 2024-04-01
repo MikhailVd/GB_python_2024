@@ -1,0 +1,40 @@
+# Напишите функцию, которая принимает на вход строку - абсолютный путь до файла. Функция возвращает кортеж из трёх элементов: путь, имя файла, расширение файла.
+
+import os
+
+def get_file_info(file_path):
+    directory, filename = os.path.split(file_path)
+    name, extension = os.path.splitext(filename)
+    if not extension:
+        extension = ''
+    else:
+        extension = extension[1:]
+    return (directory, name, extension)
+
+get_file_info('/Users/misha/Desktop/python/Новая таблица (4).xlsx')
+
+
+
+# Напишите однострочный генератор словаря, который принимает на вход три списка одинаковой длины: имена str, ставка int, премия str с указанием процентов вида “10.25%”. 
+# В результате получаем словарь с именем в качестве ключа и суммой премии в качестве значения. 
+# Сумма рассчитывается как ставка умноженная на процент премии 
+
+names = ['Misha', 'Masha', 'Vlad']
+rates = [50000, 60000, 70000]
+bonuses = ['10.25%', '15.5%', '20%']
+
+salaries = {name: salary * (1 + float(bonus[:-1]) / 100) - salary for name, salary, bonus in zip(names, rates, bonuses)}
+print(salaries)
+
+
+
+#Создайте функцию генератор чисел Фибоначчи
+def fibonacci_generator(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+num_fibonacci = 10
+
+for num in fibonacci_generator(num_fibonacci):
+    print(num, end=' ')
